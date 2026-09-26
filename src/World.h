@@ -6,9 +6,11 @@
 #include "Collision.h"
 #include "CollisionManifold.h"
 
-class World {
+class World
+{
 private:
-    struct ContactPairs {
+    struct ContactPairs
+    {
         int i;
         int j;
         ContactPairs(int x, int y) : i(x), j(y) {}
@@ -21,6 +23,7 @@ private:
 
     std::vector<Body2D> bodies;
     std::vector<ContactPairs> ContactPair; // Store potential contacts
+    std::vector<int> SortedIndices;        // scratch buffer for the sweep-and-prune broad phase
     Collision collision;
     float gravity;
     int MaxIter = 128;
@@ -28,20 +31,20 @@ private:
 
 public:
     World();
-    void AddBody(const Body2D& body);
-    Body2D& GetBody(int index);
-    void RemoveBody(Body2D& body);
-    std::vector<Body2D>& GetBodies();
+    void AddBody(const Body2D &body);
+    Body2D &GetBody(int index);
+    void RemoveBody(Body2D &body);
+    void RemoveBodyAt(int index); // safe to call while iterating indices in reverse
+    std::vector<Body2D> &GetBodies();
     void Step(float dt, int iterations);
 
-
 private:
-    void BroadPhase(); // Detect potential collisions
+    void BroadPhase();  // Detect potential collisions
     void NarrowPhase(); // Handle actual collision detection
-    void ResolveCollision(CollisionManifold& manifold);
-    void ResolveCollisionRotation(CollisionManifold& manifold);
-    void ResolveCollisionRotationFriction(CollisionManifold& manifold);
-    void SeperateBody(Body2D& ,Body2D& ,Vector2 ,float );
+    void ResolveCollision(CollisionManifold &manifold);
+    void ResolveCollisionRotation(CollisionManifold &manifold);
+    void ResolveCollisionRotationFriction(CollisionManifold &manifold);
+    void SeperateBody(Body2D &, Body2D &, Vector2, float);
 };
 
 #endif // WORLD_H

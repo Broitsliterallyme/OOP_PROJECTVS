@@ -1,0 +1,3 @@
+/home/Erectum/Documents/Projects/OOP_PROJECTVS/build/CMakeFiles/TEST.dir
+/home/Erectum/Documents/Projects/OOP_PROJECTVS/build/CMakeFiles/edit_cache.dir
+/home/Erectum/Documents/Projects/OOP_PROJECTVS/build/CMakeFiles/rebuild_cache.dir
